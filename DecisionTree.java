@@ -1,5 +1,10 @@
 /** Implements decision tree */
 public class DecisionTree extends BinaryTree<String>{
+
+    protected String data;
+    protected DecisionTree left;
+    protected DecisionTree right;
+
     /**
      * Simple constructor to create a leaf node
      * @param string the value the node contains
@@ -29,6 +34,27 @@ public class DecisionTree extends BinaryTree<String>{
         this.setLeft(ogTree.getLeft());
         this.setRight(ogTree.getRight());
 
+    }
+
+
+    /** Accessor for node data */
+    public String getData() {
+	      return this.data;
+    }
+
+    /** Accessor for left child */
+    public DecisionTree getLeft() {
+      	return this.left;
+    }
+
+    /** Accessor for right child */
+    public DecisionTree getRight() {
+      	return this.right;
+    }
+
+    /** Manipulator for node data */
+    public void setData(String data) {
+      	this.data = data;
     }
 
     /** Manipulator for left child */
