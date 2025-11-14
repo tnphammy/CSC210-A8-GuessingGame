@@ -1,8 +1,11 @@
 /** Implements decision tree */
 public class DecisionTree extends BinaryTree<String>{
 
+    /** The value of the node */
     protected String data;
+    /** The node to the left */
     protected DecisionTree left;
+    /** The node to the right */
     protected DecisionTree right;
 
     /**
@@ -39,17 +42,22 @@ public class DecisionTree extends BinaryTree<String>{
 
     /** Accessor for node data */
     public String getData() {
-	      return this.data;
+	    if (super.getData() instanceof String) {
+            return super.getData();
+        }
+        else {
+            throw new UnsupportedOperationException("The data entered is not of type String.");
+        }
     }
 
     /** Accessor for left child */
     public DecisionTree getLeft() {
-      	return this.left;
+      	return (DecisionTree)super.getLeft();
     }
 
     /** Accessor for right child */
     public DecisionTree getRight() {
-      	return this.right;
+        return (DecisionTree)super.getRight();
     }
 
     /** Manipulator for node data */
