@@ -1,4 +1,8 @@
-/** Implements decision tree */
+import java.lang.reflect.InaccessibleObjectException;
+
+/** Implements decision tree 
+ * @author Tammy Pham
+*/
 public class DecisionTree extends BinaryTree<String>{
 
     /** The value of the node */
@@ -83,6 +87,24 @@ public class DecisionTree extends BinaryTree<String>{
         else {
             throw new UnsupportedOperationException();
         }
+    }
+
+    public DecisionTree followPath(String path) {
+        DecisionTree curr = this;
+        // traverse the tree
+        for(int i = 0; i < path.length(); i++) {
+            String direction = String.valueOf((path.charAt(i))).toUpperCase();
+            if (direction.equals("Y")) {
+                curr = curr.getLeft();
+            }
+            else if (direction.equals("N")) {
+                curr = curr.getRight();
+            }
+            else {
+                throw new InaccessibleObjectException("The node you're trying to reach does not exist.");
+            }
+        }
+        return curr;
     }
 
 
