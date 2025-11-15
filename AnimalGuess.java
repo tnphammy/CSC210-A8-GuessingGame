@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 /** Contains Animal Guessing Game*/
 public class AnimalGuess {
     /**
@@ -21,6 +23,60 @@ public class AnimalGuess {
             tree.setRight(new DecisionTree(animal));
             tree.setLeft(guess);
         }
+    }
+    
+    /**
+     * Read a line and build a tree
+     * @param line the instructions
+     */
+    public DecisionTree setPath(String line) {
+        // Make a new DecisionTree
+        DecisionTree tree = new DecisionTree("root");
+        // Build a Queue representation of the line
+        Queue<String> q = new LinkedList<>();
+        for (char c : line.toCharArray()) {
+            q.add(String.valueOf(c));
+        }
+        // Read Queue 
+        DecisionTree curr = tree;
+        // Follow Q while valid and not a leaf
+        while (curr.isBranch()) {
+            // Root case
+            if (q.peek().equals(" ")) {
+                q.remove(); /* gets rid of space */
+                String input = "";
+                while (!q.isEmpty()) {
+                    input += q.poll(); /* gets the data after the space */
+                }
+                curr.setData(input);
+            } 
+
+            // Non-root case
+
+            // 1. get direction
+            String direction = q.poll();
+            // 2. follow direction -> update curr
+            curr = tree.followPath(direction);
+        }
+        // When Q is a leaf, set the data
+        if (curr.isLeaf()) {
+            // get direction for new leaf
+            String direction = q.poll();
+            q.remove(); /* gets rid of space */
+
+            // insert leaf correctly
+            String input = "";
+            while (!q.isEmpty()) {
+                input += q.poll(); /* gets the data after the space */
+            }
+            if (interpret(direction)) { /* Answer is "yes" */
+                curr.setLeft(new DecisionTree(input));
+            }
+            else if (!interpret(input)) { /* Answer is "no" */
+                curr.setRight(new DecisionTree(input));
+            }
+        }
+        return tree;
     }
     
     /**
