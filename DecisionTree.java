@@ -66,12 +66,12 @@ public class DecisionTree extends BinaryTree<String>{
 
     /** Manipulator for node data */
     public void setData(String data) {
-      	this.data = data;
+        super.setData(data);
     }
 
     /** Manipulator for left child */
     public void setLeft(BinaryTree<String> left) {
-        if(left instanceof DecisionTree) {
+        if(left == null || left instanceof DecisionTree) {
             super.setLeft(left);
         }
         else {
@@ -81,7 +81,7 @@ public class DecisionTree extends BinaryTree<String>{
 
     /** Manipulator for right child */
     public void setRight(BinaryTree<String> right) {
-        if(right instanceof DecisionTree) {
+        if(right == null || right instanceof DecisionTree) {
             super.setRight(right);
         }
         else {

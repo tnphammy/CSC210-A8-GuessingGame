@@ -3,12 +3,24 @@ import java.util.Scanner;
 public class AnimalGuess {
     /**
      * Inserts a new animal into the tree for more details
-     * @param tree the decision tree
+     * @param tree the decision tree or node
      * @param question the provided question
      * @param answer the corresponding answer 
      */
-    public void improveTree(DecisionTree tree, String question, String answer) {
-        
+    public static void improveTree(DecisionTree tree, String question, String answer, String animal) {
+        // Store (wrong) program guess
+        DecisionTree guess = new DecisionTree(tree.getData(), tree.getLeft(), tree.getRight());
+        // Replace program guess node with question
+        tree.setData(question);
+        // Point answer to the right directions
+        if (interpret(answer)) {
+            tree.setLeft(new DecisionTree(animal));
+            tree.setRight(guess);
+        }
+        else if (!interpret(answer)) {
+            tree.setRight(new DecisionTree(animal));
+            tree.setLeft(guess);
+        }
     }
     
     /**
@@ -29,17 +41,19 @@ public class AnimalGuess {
         }
     }
     public static void main(String[] args) {
-        // Set up binary tree
-        DecisionTree tree = new DecisionTree("Is it a Mammal?");
-        tree.setLeft(new DecisionTree("Does it have Hooves?", new DecisionTree("Does it give milk?"), new DecisionTree("Is it a carnivore?")));
-        tree.setRight(new DecisionTree("Is it a Reptile?", new DecisionTree("Crocodile"), new DecisionTree("Mosquito")));
-        tree.getLeft().getLeft().setLeft(new DecisionTree("Cow"));
-        tree.getLeft().getLeft().setRight(new DecisionTree("Horse"));
-        tree.getLeft().getRight().setLeft(new DecisionTree("Is it in the dog family?"));
-        tree.getLeft().getRight().setRight(new DecisionTree("Mouse"));
-        tree.getLeft().getRight().getLeft().setLeft(new DecisionTree("Dog"));
-        tree.getLeft().getRight().getLeft().setRight(new DecisionTree("Cat"));
+        // Hard-code binary tree 
+        // DecisionTree tree = new DecisionTree("Is it a Mammal?");
+        // tree.setLeft(new DecisionTree("Does it have Hooves?", new DecisionTree("Does it give milk?"), new DecisionTree("Is it a carnivore?")));
+        // tree.setRight(new DecisionTree("Is it a Reptile?", new DecisionTree("Crocodile"), new DecisionTree("Mosquito")));
+        // tree.getLeft().getLeft().setLeft(new DecisionTree("Cow"));
+        // tree.getLeft().getLeft().setRight(new DecisionTree("Horse"));
+        // tree.getLeft().getRight().setLeft(new DecisionTree("Is it in the dog family?"));
+        // tree.getLeft().getRight().setRight(new DecisionTree("Mouse"));
+        // tree.getLeft().getRight().getLeft().setLeft(new DecisionTree("Dog"));
+        // tree.getLeft().getRight().getLeft().setRight(new DecisionTree("Cat"));
         // System.out.println(tree.followPath("Y").getData());
+
+        DecisionTree tree = new DecisionTree("mouse");
 
         Boolean gameContinues = true; /* ensures game loop */
         try (Scanner user = new Scanner(System.in)) { // set up Scanner object
@@ -69,10 +83,12 @@ public class AnimalGuess {
                 if (curr.isLeaf()) {
                     System.out.println("Is it a " + curr.getData() + "?");
                 }
+                // Happy case
                 String grader = user.nextLine().toLowerCase();
                 if (interpret(grader)) {
                     System.out.println("Cool! This was fun.");
                 }
+                // Improvement case
                 else if (!interpret(grader)) {
                     // Obtains new animal
                     System.out.println("Sorry for that. What was your animal?");
@@ -83,6 +99,8 @@ public class AnimalGuess {
                     // Obtains corresponding answer
                     System.out.println("Would you answer yes to this question for the " + realAnimal + "?");
                     String betterAnswer = user.nextLine().toLowerCase(); 
+                    // Run improvement
+                    improveTree(curr, betterQuestion, betterAnswer, realAnimal);
                 }
                 System.out.println("Play again?");
                 String userWish = user.nextLine().toLowerCase();
