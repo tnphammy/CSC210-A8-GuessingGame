@@ -21,7 +21,7 @@ YES 2 pts: Correctly updates tree when user wins the game
 
 YES 1 pt: User interaction is clear & follows instructions
 
-NO 1 pt: Implemented method to write tree correctly to file in breadth-first order
+PART 1 pt: Implemented method to write tree correctly to file in breadth-first order
 
 NO 1 pt: Implemented method to read tree correctly from file
 

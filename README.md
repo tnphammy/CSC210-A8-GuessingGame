@@ -3,12 +3,13 @@
 Your readme should include the following information. Each student needs to submit all of this information themselves, even when pair programming. 
 
 ## General Information
-Programming Partner Name (if you'd like to be graded together):
+Programming Partner Name (if you'd like to be graded together): N/A
 
-Other Collaborators (and kudos to helpful members of the class):
+Other Collaborators (and kudos to helpful members of the class): N/A
 
-Any references used besides JavaDoc and course materials:
+Any references used besides JavaDoc and course materials: N/A
 
 ## Assignment Reflection
 
 Please reflect on your experience with this assignment. What was most challenging? What was most interesting?
+It was very hard writing the read file stuff as I wasn't sure how I would take in my input, and processing the input itself was very long and excruciating
