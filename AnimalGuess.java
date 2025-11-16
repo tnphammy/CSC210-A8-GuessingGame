@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 /** Contains Animal Guessing Game */
 public class AnimalGuess {
@@ -12,6 +14,7 @@ public class AnimalGuess {
      * @param tree     the decision tree or node
      * @param question the provided question
      * @param answer   the corresponding answer
+     * @param animal the provided animal
      */
     public static void improveTree(DecisionTree tree, String question, String answer, String animal) {
         // Store (wrong) program guess
@@ -31,8 +34,8 @@ public class AnimalGuess {
     /**
      * Convert a queue to a String
      * 
-     * @param q
-     * @return
+     * @param q the queue 
+     * @return the String representation of the queue
      */
     public static String qtoString(Queue<String> q) {
         String output = "";
@@ -110,6 +113,35 @@ public class AnimalGuess {
         return tree;
     }
 
+    /** Encodes a tree into a String format
+     * @param tree the tree being interpreted
+     */
+    public static String encodeTree(DecisionTree tree) {
+        return encoderHelper(tree, "");
+    }
+
+    /**
+     * Helper function to read each level of binary tree (Breadth-first)
+     * @param node the current node
+     * @param path the String representation of the path to the node
+     * @return the entirety of the tree as a String
+     */
+    public static String encoderHelper(DecisionTree node, String path) {
+        // Base case: Null
+        if (node == null) {
+            return "";
+        }
+        // Base case: One line
+        String line = path + " " + node.getData() + "\n";
+    
+        // // Recursive step: Read Left and Right 
+        String leftLine = encoderHelper(node.getLeft(), path + "Y");
+        String rightLine = encoderHelper(node.getRight(), path + "N");
+        return line + leftLine + rightLine;
+    }
+    
+
+
     /**
      * Interprets a user's response into a boolean value
      * 
@@ -128,7 +160,12 @@ public class AnimalGuess {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main method for running and debugging
+     * @param args input
+    * @throws FileNotFoundException 
+    */
+    public static void main(String[] args) throws FileNotFoundException {
         // Makes first tree
         DecisionTree tree = new DecisionTree("root");
         // Reads file to make tree
@@ -187,7 +224,15 @@ public class AnimalGuess {
                     String betterAnswer = user.nextLine().toLowerCase();
                     // Run improvement
                     improveTree(curr, betterQuestion, betterAnswer, realAnimal);
+                    // Store current tree for later
+                    
+                    String encoded = encodeTree(tree);
+
+                    try (PrintWriter writer = new PrintWriter("AnimalTree.txt")) {
+                        writer.print(encoded);
+                    }
                 }
+
                 System.out.println("Play again?");
                 String userWish = user.nextLine().toLowerCase();
                 if (!interpret(userWish)) {

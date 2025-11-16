@@ -1,13 +1,15 @@
  Is it a mammal?
 Y Does it have hooves?
-N Is it a reptile?
 YY Does it give milk?
-YN Is it a carnivore?
-NY Crocodile
-NN Mosquito
 YYY Cow
 YYN Horse
+YN Is it a carnivore?
 YNY Is it in the dog family?
-YNN Mouse
 YNYY Dog
-YNYN Cat
+YNYN Is it a primate?
+YNYNY Monkey
+YNYNN Cat
+YNN Mouse
+N Is it a reptile?
+NY Crocodile
+NN Mosquito
