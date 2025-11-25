@@ -89,6 +89,11 @@ public class DecisionTree extends BinaryTree<String>{
         }
     }
 
+    /**
+     * Follows a string representation of a path containing Y's and N's and returns the corresponding node
+     * @param path The direction to the node
+     * @return the resulting node
+     */
     public DecisionTree followPath(String path) {
         DecisionTree curr = this;
         // traverse the tree
