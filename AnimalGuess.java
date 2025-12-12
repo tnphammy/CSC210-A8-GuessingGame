@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -47,7 +46,7 @@ public class AnimalGuess {
 
     /**
      * Read a line and build a tree
-     * 
+     * @param tree the starter tree 
      * @param line the instructions
      */
     public static DecisionTree setPath(DecisionTree tree, String line) {
