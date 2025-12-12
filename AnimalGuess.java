@@ -48,6 +48,7 @@ public class AnimalGuess {
      * Read a line and build a tree
      * @param tree the starter tree 
      * @param line the instructions
+     * @return the tree representation from the instructions
      */
     public static DecisionTree setPath(DecisionTree tree, String line) {
         // Build a Queue representation of the line
